@@ -1,6 +1,6 @@
 FROM node:16.17.1-alpine
 
-COPY my-app /
+RUN npx create-react-app my-app
 WORKDIR /my-app
 RUN npm update
 
