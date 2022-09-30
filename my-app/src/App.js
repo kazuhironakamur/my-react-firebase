@@ -1,6 +1,5 @@
 import logo from './logo.svg';
 import './App.css';
-import './Firebase.js'
 
 function App() {
   return (

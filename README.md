@@ -5,8 +5,8 @@ cd <build dir>
 docker build -t my-react-firebase .
 ```
 
-# Create src/Firebase.js
-for Example
+# Create Firebase initialize script
+my-app/src/Firebase.js
 ```
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -32,8 +32,43 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 ```
 
-# Run conatiner
+# Add settings for Firebase
+my-app/ackage.json
 ```
-docker run -it --rm -p 3000:3000 -v $(pwd)/public:/my-app/public -v $(pwd)/src:/my-app/src --name my-career my-react-firebase
+  },
+  "proxy": "http://localhost:3000"
+}
 ```
 
+# Setup your PUBLIC_URL
+my-app/.env
+```
+PUBLIC_URL=https://<your public url>.web.app
+```
+
+# Setup your Firebase
+my-app/firebase.json
+```
+{
+  "hosting": {
+    "public": "build",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
+```
+
+# Run conatiner
+```
+docker run -it --rm -p 3000:3000 -p 9005:9005 -v $(pwd)/my-app:/my-app --name my-career my-react-firebase
+```
+
+# Use Firebase
+```
+docker exec -it my-career npx firebase login
+docker exec -it my-career npm run build
+docker exec -it my-career npx firebase deploy
+```

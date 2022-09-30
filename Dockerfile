@@ -6,4 +6,6 @@ RUN npm update
 RUN npm install firebase firebase-tools
 
 EXPOSE 3000
+EXPOSE 9005
+
 CMD npm start
